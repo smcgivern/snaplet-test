@@ -1,0 +1,6 @@
+data
+dump
+node_modules
+sock/*
+.snaplet/snapshots
+.snaplet/snaplet.d.ts

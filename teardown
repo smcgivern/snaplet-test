@@ -1,0 +1,10 @@
+#!/bin/sh -x
+
+postgres -k "${PWD}/sock" -D data &
+pid=$!
+sleep 1
+
+dropdb -h "${PWD}/sock" -U postgres snaplet-test
+
+kill $pid
+rm -rf data

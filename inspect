@@ -1,0 +1,4 @@
+#!/bin/sh
+
+npm run snapshot-capture
+echo "SELECT query FROM pg_stat_statements WHERE query LIKE 'COPY %';" | psql -h "${PWD}/sock" -U postgres -d snaplet-test -X

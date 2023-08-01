@@ -1,0 +1,22 @@
+#!/bin/sh -x
+
+npm run fix-database-url
+initdb -D data -U postgres
+
+postgres -k "${PWD}/sock" -D data &
+pid=$!
+sleep 1
+
+createdb -h "${PWD}/sock" -U postgres snaplet-test
+psql -h "${PWD}/sock" -U postgres -d snaplet-test -X < schema.sql
+
+# Reload for pg_stat_statements;
+kill $pid
+wait $pid
+postgres -k "${PWD}/sock" -D data &
+pid=$!
+sleep 1
+
+echo 'CREATE EXTENSION pg_stat_statements;' | psql -h "${PWD}/sock" -U postgres -d snaplet-test -X
+
+kill $pid

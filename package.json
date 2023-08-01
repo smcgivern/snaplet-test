@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "snaplet": "^0.54.4"
+  },
+  "scripts": {
+    "fix-database-url": "node fix-database-url.js",
+    "snaplet": "snaplet",
+    "snapshot-capture": "rm -r dump ; SNAPLET_SOURCE_DATABASE_URL=$(node database-url.js) DEBUG='snaplet:capture*' snaplet snapshot capture dump"
+  }
+}
